@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders; 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +44,7 @@ public class Download {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         writeFileToStream(file,baos);
+        response.setHeader(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename="+resourceFile.getFilename());
         return new ResponseEntity(baos.toByteArray(), HttpStatus.OK);
     }
 
